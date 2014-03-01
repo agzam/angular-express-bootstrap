@@ -3,6 +3,13 @@ path = require "path"
 module.exports = (grunt)->
    grunt.initConfig
       coffee:
+         server:
+            options: bare: true
+            expand: true
+            cwd: '.'
+            src: ['src/server.coffee']
+            dest:''
+            ext: '.js'
          app:
             options: bare: true
             expand: true
@@ -15,11 +22,15 @@ module.exports = (grunt)->
                console.log destPath
                path.join destBase, destPath
 
-      copy: all:
-         expand: true
-         cwd: 'src/'
-         src: ['**/*.html', '**/*.css']
-         dest: 'bin/'
+      copy:
+         server:
+            src: ['src/server.js']
+            dest: 'bin/server.js'
+         all:
+            expand: true
+            cwd: 'src/'
+            src: ['**/*.html', '**/*.css']
+            dest: 'bin/'
 
       browserify:
          js:
@@ -27,7 +38,7 @@ module.exports = (grunt)->
             dest: 'bin/js/app.js'
 
       watch:
-         files:['src/coffee/**/*.coffee', 'src/**/*.html','src/**/*.css']
+         files:['src/**/*.coffee', 'src/**/*.html','src/**/*.css']
          tasks:['compile']
 
 
@@ -36,5 +47,14 @@ module.exports = (grunt)->
    grunt.loadNpmTasks 'grunt-browserify'
    grunt.loadNpmTasks 'grunt-contrib-copy'
 
+   grunt.registerTask 'server', "starts local node server", ->
+      grunt.task.run('compile')
+      spawnOptions =
+         cmd:'node'
+         args:['bin/server.js']
+      grunt.util.spawn spawnOptions
+      grunt.task.run('watch')
+
    grunt.registerTask 'compile', ['coffee','browserify', 'copy']
-   grunt.registerTask 'default', ['coffee']
+   grunt.registerTask 'default', ['compile']
+

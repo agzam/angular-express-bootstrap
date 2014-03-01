@@ -1,5 +1,12 @@
-require("angular/angular")
+require "angular/angular"
+require "angular-route/angular-route"
+indexCtrl = require("./index-controller")
 
-console.log "angular is -> "+Object.keys angular
+app = angular.module('app',['ngRoute'])
 
-angular.module('app',[])
+app.config ['$routeProvider', ($routeProvider)->
+   $routeProvider.when "/",
+      templateUrl: 'static/templates/index.html'
+      controller: indexCtrl
+]
+
