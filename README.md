@@ -1,5 +1,5 @@
 angular-express-bootstrap
 =========================
 
-basic scaffolding for express, angular and grunt
+basic scaffolding for projects using express, angular and grunt
 
