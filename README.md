@@ -1,5 +1,5 @@
-angular-express-bootstrap
+angular-browserify-express-bootstrap
 =========================
 
-basic scaffolding for projects using express, angular and grunt
+basic scaffolding for projects using browserify, express,angular and grunt
 
